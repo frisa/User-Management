@@ -9,5 +9,5 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./authentication.component.css']
 })
 export class AuthenticationComponent {
-
+  title = "Authentication";
 }

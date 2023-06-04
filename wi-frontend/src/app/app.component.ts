@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthenticationComponent} from './authentication/authentication.component'
+import { AuthenticationsComponent } from './authentications/authentications.component';
+import { UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +10,11 @@ import { AuthenticationComponent} from './authentication/authentication.componen
   standalone: true,
   imports:[
     AuthenticationComponent,
+    AuthenticationsComponent,
+    UpperCasePipe,
   ],
 })
 export class AppComponent {
   title = 'wi-frontend';
+  applicationName='WI Sumulation';
 }
