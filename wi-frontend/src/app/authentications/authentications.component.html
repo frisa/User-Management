@@ -1,11 +1,4 @@
 <table class="thin_border">
-    <tr>
-        <td>User:</td>
-        <td>{{authentication.user}}</td>
-    </tr>
-    <tr>
-        <td>Authenticated:</td>
-        <td>{{authentication.authenticated}}</td>
-    </tr>
+    <li *ngFor="let item of authentications">{{item.user}}</li>
 </table>
 
