@@ -1,10 +1,46 @@
-var http = require("http")
-var applicationName = "HTTP Server"
+const express = require('express');
+const cors = require('cors');
+const {graphqlHTTP } = require('express-graphql');
 
-http.createServer(function(request, response){
-    response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.end('HTTP Server is running\n');
-}).listen(8081);
+// Testing values
+const Authentications = [
+    { user: 'Admin', password: '12345'},
+    { user: 'User', password: '12345678'},
+  ]
 
-console.log('Server running at http://127.0.0.1:8081/');
+// GraphQL Definitions
+const {
+    GraphQLObjectType,
+    GraphQLString,
+    GraphQLNonNull,
+    GraphQLList,
+    GraphQLSchema
+} = require('graphql')
 
+const AuthRecordType = new GraphQLObjectType({
+    name: 'AuthRecord',
+    fields: ()=>({
+        user: {type: new GraphQLNonNull(GraphQLString)},
+        password: {type: new GraphQLNonNull(GraphQLString)},
+    })
+})
+
+const RootQueryType = new GraphQLObjectType({
+    name: 'Query',
+    fields: () => ({
+        authentications:{
+            type: new GraphQLList(AuthRecordType),
+            resolve: () => Authentications
+        }
+    })
+})
+
+const gqlSchema = new GraphQLSchema({
+    query: RootQueryType
+})
+
+// GraphQL API Server
+const app = express();
+app.use('/graphql', graphqlHTTP({schema: gqlSchema, graphiql: true}));
+app.listen(4000);
+console.log("Running GraphQL API server on localhost:4000/graphql");
