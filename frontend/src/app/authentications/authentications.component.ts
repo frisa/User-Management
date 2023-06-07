@@ -1,20 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthRecord } from './authentication_record';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { UpperCasePipe } from '@angular/common';
+import { Apollo } from 'apollo-angular';
+import { GET_AUTHENTICATIONS } from '../graphql/graphql.queries';
 
 @Component({
   selector: 'app-authentications',
   templateUrl: './authentications.component.html',
   styleUrls: ['./authentications.component.css'],
   standalone: true,
-  imports: [NgFor, UpperCasePipe]
+  imports: [NgFor, NgIf, UpperCasePipe]
 })
-export class AuthenticationsComponent {
+export class AuthenticationsComponent implements OnInit {
+  authentications: any[] = [];
+  error: any;
 
-  authentications: AuthRecord[] = [
-    {id: 1, user: "Jan Fridrichovsky", authenticated: false},
-    {id: 2, user: "Pepa Novak", authenticated: false},
-    {id: 2, user: "Deda Lebeda", authenticated: false}
-  ];
+  constructor(private apollo: Apollo) { }
+
+  ngOnInit(): void {
+    this.apollo.watchQuery({
+      query: GET_AUTHENTICATIONS
+    }).valueChanges.subscribe(({ data, error }: any) => {
+      this.authentications = data.authentications;
+      this.error = error;
+    })
+  }
+
 }

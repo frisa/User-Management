@@ -12,6 +12,6 @@ export class AuthenticationComponent {
   title = "Authentication";
   onSubmit()
   {
-    
+    console.log("Login will be processed later");
   }
 }

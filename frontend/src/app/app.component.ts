@@ -15,6 +15,6 @@ import { UpperCasePipe } from '@angular/common';
   ],
 })
 export class AppComponent {
-  title = 'wi-frontend';
+  title = 'frontend';
   applicationName='WI Sumulation';
 }
