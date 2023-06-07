@@ -12,6 +12,6 @@ export class AuthenticationComponent {
   title = "Authentication";
   onSubmit()
   {
-    this.title = "submitted";
+    
   }
 }
