@@ -41,6 +41,7 @@ const gqlSchema = new GraphQLSchema({
 
 // GraphQL API Server
 const app = express();
+app.use(cors());
 app.use('/graphql', graphqlHTTP({schema: gqlSchema, graphiql: true}));
 app.listen(4000);
 console.log("Running GraphQL API server on localhost:4000/graphql");
