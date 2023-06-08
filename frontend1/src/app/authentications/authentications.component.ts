@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthRecord } from './authentication_record';
 import { NgFor, NgIf } from '@angular/common';
 import { UpperCasePipe } from '@angular/common';
 import { Apollo } from 'apollo-angular';
@@ -17,7 +16,6 @@ export class AuthenticationsComponent implements OnInit {
   error: any;
 
   constructor(private apollo: Apollo) { }
-
   ngOnInit(): void {
     this.apollo.watchQuery({
       query: GET_AUTHENTICATIONS

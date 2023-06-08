@@ -1,4 +1,4 @@
-import {gql} from 'apollo-angular'
+import { gql } from 'apollo-angular'
 
 const GET_AUTHENTICATIONS = gql`
 query{
@@ -8,4 +8,4 @@ query{
     }
 }
 `
-export {GET_AUTHENTICATIONS}
+export { GET_AUTHENTICATIONS }
