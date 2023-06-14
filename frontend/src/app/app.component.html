@@ -1,4 +1,9 @@
-<table>
+<table class="tablestyle">
+  <th class="redbackground" colspan="2">Login</th>
+  <tr><td>User: </td><td><input class="fittcell"></td></tr>
+  <tr><td>Password:</td><td><input class="fittcell"></td></tr>
+</table>
+<table class="tablestyle">
   <th>GraphQL List</th>
   <tr *ngFor="let auth of authentications">{{auth.user}}</tr>
 </table>

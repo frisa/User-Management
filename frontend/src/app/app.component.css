@@ -1,0 +1,11 @@
+.redbackground{
+    background-color: red;
+    color: white
+}
+.tablestyle{
+    border: 1px solid black;
+    width: 300px;
+}
+.fittcell{
+    width: 96%;
+}
