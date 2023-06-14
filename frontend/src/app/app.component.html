@@ -1,9 +1,24 @@
+<form>
 <table class="tablestyle">
   <th class="redbackground" colspan="2">Login</th>
-  <tr><td>User: </td><td><input class="fittcell"></td></tr>
-  <tr><td>Password:</td><td><input class="fittcell"></td></tr>
+  <tr>
+    <td><label for="user">User:</label></td>
+    <td><input type="text" id="user"></td></tr>
+  <tr>
+    <td><label for="password">Password:</label></td>
+    <td><input type="text" id="password"></td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <button class="fittcell">Login</button>
+    </td>
+  </tr>
 </table>
+</form>
 <table class="tablestyle">
-  <th>GraphQL List</th>
-  <tr *ngFor="let auth of authentications">{{auth.user}}</tr>
+  <thead class="graybackground">
+    <th>User</th>
+    <th>Password</th>
+  </thead>
+  <tr *ngFor="let auth of authentications"><td class="trline">{{auth.user}}</td><td class="trline">{{auth.password}}</td></tr>
 </table>

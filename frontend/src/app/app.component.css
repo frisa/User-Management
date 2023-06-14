@@ -2,10 +2,18 @@
     background-color: red;
     color: white
 }
+.graybackground{
+    background-color: gray;
+    color: white;
+}
 .tablestyle{
     border: 1px solid black;
-    width: 300px;
+    width: 263px;
 }
 .fittcell{
-    width: 96%;
+    width: 100%;
 }
+
+.trline{
+    border: 1px solid black
+} 
