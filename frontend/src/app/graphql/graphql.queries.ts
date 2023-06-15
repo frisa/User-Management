@@ -8,4 +8,15 @@ query{
     }
 }
 `
-export {GET_AUTHENTICATIONS}
+
+const ADD_AUTHENTICATION = gql`
+mutation addAuthentication($user: String!, $password: String!)
+{
+    addAuthentication(user: $user, password: $password)
+    {
+        user
+        password
+    }
+}
+`
+export {GET_AUTHENTICATIONS, ADD_AUTHENTICATION}
