@@ -37,6 +37,13 @@ const RootQueryType = new GraphQLObjectType({
     })
 })
 
+function authenticate(user, password){
+    /*
+    here needs to be implementd gRPC authentication
+    */
+    return true;
+}
+
 const RootMutationType = new GraphQLObjectType(
     {
         name: 'Mutation',
@@ -58,7 +65,7 @@ const RootMutationType = new GraphQLObjectType(
                     const newAuth = {
                         user: args.user,
                         password: args.password,
-                        authenticated: true,
+                        authenticated: authenticate(),
                     }
                     Authentications.push(newAuth)
                     return newAuth

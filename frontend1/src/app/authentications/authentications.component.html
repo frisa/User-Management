@@ -1,7 +1,0 @@
-<table class="thin_border" width="263">
-    <th colspan="2" class="red_background">Logging</th>
-    <tr *ngFor="let item of authentications" class="auth_list"><td>{{item.user|uppercase}}</td><td>{{item.authenticated}}</td></tr>
-    <div *ngIf="error">
-        <p>Error: {{ error }}</p>
-    </div>
-</table>
