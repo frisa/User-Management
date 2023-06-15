@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { Apollo } from 'apollo-angular';
 import { GET_AUTHENTICATIONS, ADD_AUTHENTICATION } from './graphql/graphql.queries';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,13 @@ export class AppComponent implements OnInit {
   authentications: any[] = [];
   error: any;
   title = 'frontend';
+  loginForm = new FormGroup(
+    {
+      user: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required)
+    }
+  );
+
   constructor(private apollo: Apollo) { }
   ngOnInit(): void {
     this.apollo.watchQuery({
@@ -23,13 +31,12 @@ export class AppComponent implements OnInit {
     );
   }
   onLogin() {
-    console.log("NECO");
     this.apollo.mutate(
       {
         mutation: ADD_AUTHENTICATION,
         variables: {
-          user: "TestUser",
-          password: "TestPassword"
+          user: this.loginForm.value.user,
+          password: this.loginForm.value.password,
         },
         refetchQueries: [
           {
@@ -39,6 +46,9 @@ export class AppComponent implements OnInit {
       }
     ).subscribe(({data}: any) => {
       this.authentications = data.addAuthentication;
+      this.loginForm.reset();
+    }, (error) => {
+      this.error = error;
     } )
   }
 }

@@ -17,7 +17,7 @@ const {
     GraphQLSchema
 } = require('graphql')
 
-const AuthRecordType = new GraphQLObjectType({
+const AuthType = new GraphQLObjectType({
     name: 'AuthRecord',
     fields: () => ({
         user: { type: new GraphQLNonNull(GraphQLString) },
@@ -29,7 +29,7 @@ const RootQueryType = new GraphQLObjectType({
     name: 'Query',
     fields: () => ({
         authentications: {
-            type: new GraphQLList(AuthRecordType),
+            type: new GraphQLList(AuthType),
             resolve: () => Authentications
         }
     })
@@ -41,7 +41,7 @@ const RootMutationType = new GraphQLObjectType(
         description: 'Root Mutation',
         fields: () => ({
             addAuthentication: {
-                type: AuthRecordType,
+                type: AuthType,
                 description: 'Add new authentication',
                 args: {
                     user: {
@@ -58,7 +58,7 @@ const RootMutationType = new GraphQLObjectType(
                         password: args.password,
                     }
                     Authentications.push(newAuth)
-                    return Authentications
+                    return newAuth
                 }
             }
         }
@@ -67,7 +67,8 @@ const RootMutationType = new GraphQLObjectType(
 )
 
 const gqlSchema = new GraphQLSchema({
-    query: RootQueryType
+    query: RootQueryType,
+    mutation: RootMutationType
 })
 
 // GraphQL API Server
