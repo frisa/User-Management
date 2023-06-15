@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
     );
   }
   onLogin() {
+    console.log("NECO");
     this.apollo.mutate(
       {
         mutation: ADD_AUTHENTICATION,
@@ -36,6 +37,8 @@ export class AppComponent implements OnInit {
           }
         ]
       }
-    )
+    ).subscribe(({data}: any) => {
+      this.authentications = data.addAuthentication;
+    } )
   }
 }
