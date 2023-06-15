@@ -5,6 +5,7 @@ query{
     authentications{
         user
         password
+        authenticated
     }
 }
 `

@@ -23,6 +23,11 @@
   <thead class="graybackground">
     <th>User</th>
     <th>Password</th>
+    <th>Authenticated</th>
   </thead>
-  <tr *ngFor="let auth of authentications"><td class="trline">{{auth.user}}</td><td class="trline">{{auth.password}}</td></tr>
+  <tr *ngFor="let auth of authentications">
+    <td class="trline">{{auth.user}}</td>
+    <td class="trline">{{auth.password}}</td>
+    <td class="trline">{{auth.authenticated}}</td>
+  </tr>
 </table>

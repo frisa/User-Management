@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   loginForm = new FormGroup(
     {
       user: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required)
+      password: new FormControl('', Validators.required),
     }
   );
 
@@ -45,7 +45,6 @@ export class AppComponent implements OnInit {
         ]
       }
     ).subscribe(({data}: any) => {
-      this.authentications = data.addAuthentication;
       this.loginForm.reset();
     }, (error) => {
       this.error = error;

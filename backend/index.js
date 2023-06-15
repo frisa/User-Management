@@ -4,8 +4,8 @@ const { graphqlHTTP } = require('express-graphql');
 
 // Testing values
 const Authentications = [
-    { user: 'Admin', password: '12345' },
-    { user: 'User', password: '12345678' },
+    { user: 'Admin', password: '12345', authenticated: false },
+    { user: 'User', password: '12345678', authenticated: false },
 ]
 
 // GraphQL Definitions
@@ -14,7 +14,8 @@ const {
     GraphQLString,
     GraphQLNonNull,
     GraphQLList,
-    GraphQLSchema
+    GraphQLSchema,
+    GraphQLBoolean
 } = require('graphql')
 
 const AuthType = new GraphQLObjectType({
@@ -22,6 +23,7 @@ const AuthType = new GraphQLObjectType({
     fields: () => ({
         user: { type: new GraphQLNonNull(GraphQLString) },
         password: { type: new GraphQLNonNull(GraphQLString) },
+        authenticated: { type: new GraphQLNonNull(GraphQLBoolean) },
     })
 })
 
@@ -56,6 +58,7 @@ const RootMutationType = new GraphQLObjectType(
                     const newAuth = {
                         user: args.user,
                         password: args.password,
+                        authenticated: true,
                     }
                     Authentications.push(newAuth)
                     return newAuth
