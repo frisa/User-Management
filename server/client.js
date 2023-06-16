@@ -16,8 +16,9 @@
  *
  */
 
-var PROTO_PATH = __dirname + '../protos/auth.proto';
+var PROTO_PATH = __dirname + '/auth.proto';
 
+var parseArgs = require('minimist');
 var grpc = require('@grpc/grpc-js');
 var protoLoader = require('@grpc/proto-loader');
 var packageDefinition = protoLoader.loadSync(
@@ -30,22 +31,12 @@ var packageDefinition = protoLoader.loadSync(
     });
 var auth_proto = grpc.loadPackageDefinition(packageDefinition).auth;
 
-/**
- * Implements the SayHello RPC method.
- */
-function authenticate(call, callback) {
-  callback(null, {authentcated: 'Authenticated ' + call.request.user});
-}
-
-/**
- * Starts an RPC server that receives requests for the Greeter service at the
- * sample server port
- */
 function main() {
-  var server = new grpc.Server();
-  server.addService(auth_proto.Authenticator.service, {authenticate: authenticate});
-  server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), () => {
-    server.start();
+  target = 'localhost:50051';
+  var client = new auth_proto.Authenticator(target, grpc.credentials.createInsecure());
+  user = 'Admin';
+  client.authenticate({user: user}, function(err, response) {
+    console.log('Authentication:', response.authenticated);
   });
 }
 
