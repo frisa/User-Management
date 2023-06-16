@@ -15,13 +15,15 @@ const target_grpc = '0.0.0.0:50051';
 
 
 function authenticate(call, callback) {
+    var authenticated = '[Deny]';
     if ((call.request.user == 'Admin') && (call.request.password == '123456789')){
-      console.log("Authenticated: " + call.request.user);
       callback(null, {authenticated: true});
+      authenticated = '[Allow]';
     }
     else{
       callback(null, {authenticated: false});
     }
+    console.log('Authenticated: ' + call.request.user + '=>' + authenticated);
 }
 
 function main() {

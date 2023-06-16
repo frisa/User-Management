@@ -7,7 +7,7 @@ ApplicationWindow {
     minimumWidth: 800
     minimumHeight: 400
     visible: true
-    title: "GSS Client"
+    title: "Client"
     RowLayout{
         anchors.fill: parent
         ColumnLayout{

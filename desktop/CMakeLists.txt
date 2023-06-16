@@ -66,15 +66,15 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets)
 set(QT_QML_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/qml)
 
 qt_standard_project_setup()
-qt_add_executable(GssSim ${CLIENT_SOURCES})
-qt_add_resources(GssSim "images"
+qt_add_executable(SimUI ${CLIENT_SOURCES})
+qt_add_resources(SimUI "images"
   PREFIX "/images"
   FILES
     images/satelite.png
 )
 # the qml files will be in prefix /qt/qml/
 set_source_files_properties(qml/Application.qml PROPERTIES QT_RESOURCE_ALIAS Application.qml)
-qt_add_qml_module(GssSim
+qt_add_qml_module(SimUI
   URI
     MainWindowUi
   RESOURCE_PREFIX /qt/qml/ui
