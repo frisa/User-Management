@@ -1,9 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const { graphqlHTTP } = require('express-graphql');
-var PROTO_PATH = __dirname + '/../server/auth.proto';
-var grpc = require('@grpc/grpc-js');
-var protoLoader = require('@grpc/proto-loader');
+
+const PROTO_PATH = __dirname + '/../server/auth.proto';
+const grpc = require('@grpc/grpc-js');
+const protoLoader = require('@grpc/proto-loader');
+const util = require('util')
+
+
 var packageDefinition = protoLoader.loadSync(
     PROTO_PATH,
     {keepCase: true,
@@ -52,12 +56,16 @@ const RootQueryType = new GraphQLObjectType({
     })
 })
 
+async function callService(req, service_name){
+    const res = await service_name(req)
+    console.log('authenticated: ' + res.authenticated)
+    return res.authenticated
+}
+
 function authenticate(user, password){
     var client = new auth_proto.Authenticator(target_grpc, grpc.credentials.createInsecure());
-    client.authenticate({user: user, password: password}, function(err, response) {
-        console.log('Authentication: user:' + user + ' password:' + password + ' authenticated:'  + response.authenticated);
-    });
-    return response.authenticated;
+    const promis_authenticate = util.promisify(client.authenticate).bind(client)
+    return callService({ user: user, password: password }, promis_authenticate)
 }
 
 const RootMutationType = new GraphQLObjectType(
