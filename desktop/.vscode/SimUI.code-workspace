@@ -1,0 +1,78 @@
+{
+	"folders": [
+		{
+			"name": "Folder",
+			"path": ".."
+		},
+		{
+			"name": "Generated",
+			"path": "../gen"
+		},
+		{
+			"name": "gRPC Installation",
+			"path": "../../../gRPC_Installation"
+		},
+		{
+			"name": "gRPC Repository",
+			"path": "../../../Repositories/grpc"
+		}
+	],
+	"tasks":{
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "QML Scene",
+				"type": "shell",
+				"command": "${env:HOME}/Qt/6.4.1/gcc_64/bin/qml Application.qml",
+				"options": {
+					"cwd": "${workspaceFolder}"
+				},
+				"problemMatcher": [
+					"$gcc"
+				]
+			}
+		]
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Launch GSS Client",
+				"type": "cppdbg",
+				"request": "launch",
+				"program": "${workspaceFolder:Folder}/build/AuthClient",
+				"args": [],
+				"stopAtEntry": false,
+				"cwd": "${workspaceFolder:Folder}/build",
+				"environment": [],
+				"externalConsole": false,
+				"additionalSOLibSearchPath" : "${env:HOME}/Qt/6.4.1/gcc_64/lib;${env:HOME}/Qt/6.4.1/gcc_64/bin",
+			}
+		],
+		"compounds": []
+	},
+	"settings": {
+		"terminal.integrated.env.linux":{
+			"GRPC_REPOSITORY_DIR" : "${env:HOME}/Repositories/grpc",
+			"GRPC_INSTALL_DIR" : "${env:HOME}/gRPC_Installation",
+			"PATH" : "${env:PATH}:${env:HOME}/gRPC_Installation:${env:HOME}/Qt/6.4.1/gcc_64/bin",
+		},
+		"terminal.integrated.cwd": "${workspaceFolder}",
+		"files.associations": {
+			"iosfwd": "cpp",
+			"fstream": "cpp",
+			"system_error": "cpp",
+			"qqmlcontext": "cpp"
+		},
+		"cmake.configureSettings": {
+			"CMAKE_PREFIX_PATH" : [
+				"${env:HOME}/gRPC_Installation",
+				"${env:HOME}/Qt/6.4.1/gcc_64"
+			],
+			"MY_CMAKE_COMMON_FILE" : "${env:HOME}/Repositories/grpc/examples/cpp/cmake/common.cmake",
+			"_GRPC_CPP_PLUGIN_EXECUTABLE": "${env:HOME}/gRPC_Installation/bin/grpc_cpp_plugin"
+		},
+		"cmake.sourceDirectory": "${workspaceFolder}/.",
+		"cmake.buildDirectory": "${workspaceFolder}/build",
+	}
+}

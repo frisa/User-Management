@@ -1,0 +1,10 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "QML Scene",
+			"command": "/home/jan/Qt/6.5.0/gcc_64/bin/qml ./qml/Application.qml",
+			"problemMatcher": []
+		}	]
+}
