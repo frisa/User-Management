@@ -17,8 +17,6 @@
  */
 
 var PROTO_PATH = __dirname + '/auth.proto';
-
-var parseArgs = require('minimist');
 var grpc = require('@grpc/grpc-js');
 var protoLoader = require('@grpc/proto-loader');
 var packageDefinition = protoLoader.loadSync(
@@ -35,7 +33,8 @@ function main() {
   target = 'localhost:50051';
   var client = new auth_proto.Authenticator(target, grpc.credentials.createInsecure());
   user = 'Admin';
-  client.authenticate({user: user}, function(err, response) {
+  password = '123456789';
+  client.authenticate({user: user, password: password}, function(err, response) {
     console.log('Authentication:', response.authenticated);
   });
 }

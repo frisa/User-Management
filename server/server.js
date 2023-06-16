@@ -11,15 +11,24 @@ var packageDefinition = protoLoader.loadSync(
      oneofs: true
     });
 var auth_proto = grpc.loadPackageDefinition(packageDefinition).auth;
+const target_grpc = '0.0.0.0:50051';
+
+
 function authenticate(call, callback) {
-  callback(null, {authenticated: true});
-  console.log("Authenticated: " + call.request.user);
+    if ((call.request.user == 'Admin') && (call.request.password == '123456789')){
+      console.log("Authenticated: " + call.request.user);
+      callback(null, {authenticated: true});
+    }
+    else{
+      callback(null, {authenticated: false});
+    }
 }
 
 function main() {
   var server = new grpc.Server();
   server.addService(auth_proto.Authenticator.service, {authenticate: authenticate});
-  server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), () => {
+  console.log("Running gRPC on " + target_grpc);
+  server.bindAsync(target_grpc, grpc.ServerCredentials.createInsecure(), () => {
     server.start();
   });
 }

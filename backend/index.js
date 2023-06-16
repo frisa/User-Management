@@ -1,11 +1,26 @@
 const express = require('express');
 const cors = require('cors');
 const { graphqlHTTP } = require('express-graphql');
+var PROTO_PATH = __dirname + '/../server/auth.proto';
+var grpc = require('@grpc/grpc-js');
+var protoLoader = require('@grpc/proto-loader');
+var packageDefinition = protoLoader.loadSync(
+    PROTO_PATH,
+    {keepCase: true,
+     longs: String,
+     enums: String,
+     defaults: true,
+     oneofs: true
+    });
+var auth_proto = grpc.loadPackageDefinition(packageDefinition).auth;
+const target_grpc = 'localhost:50051';
+const target_gql = 'localhost:4000/graphql';
 
 // Testing values
 const Authentications = [
-    { user: 'Admin', password: '12345', authenticated: false },
-    { user: 'User', password: '12345678', authenticated: false },
+    { user: 'Admin', password: '123456789', authenticated: true },
+    { user: 'User', password: '123456ABC', authenticated: false },
+    { user: 'Guest', password: 'ABC12345', authenticated: false },
 ]
 
 // GraphQL Definitions
@@ -38,10 +53,11 @@ const RootQueryType = new GraphQLObjectType({
 })
 
 function authenticate(user, password){
-    /*
-    here needs to be implementd gRPC authentication
-    */
-    return true;
+    var client = new auth_proto.Authenticator(target_grpc, grpc.credentials.createInsecure());
+    client.authenticate({user: user, password: password}, function(err, response) {
+        console.log('Authentication: user:' + user + ' password:' + password + ' authenticated:'  + response.authenticated);
+    });
+    return response.authenticated;
 }
 
 const RootMutationType = new GraphQLObjectType(
@@ -65,7 +81,7 @@ const RootMutationType = new GraphQLObjectType(
                     const newAuth = {
                         user: args.user,
                         password: args.password,
-                        authenticated: authenticate(),
+                        authenticated: authenticate(args.user, args.password),
                     }
                     Authentications.push(newAuth)
                     return newAuth
@@ -86,4 +102,5 @@ const app = express();
 app.use(cors());
 app.use('/graphql', graphqlHTTP({ schema: gqlSchema, graphiql: true }));
 app.listen(4000);
-console.log("Running GraphQL API server on localhost:4000/graphql");
+console.log("Running GraphQL on " + target_gql);
+console.log("Running gRPC on " + target_grpc);
