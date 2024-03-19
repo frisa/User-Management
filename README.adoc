@@ -1,0 +1,31 @@
+== SimWI Application Overview
+
+Desktop application for authentication server
+image::
+
+== Running the gRPC Authentication service
+
+Starting the authentication server with gRPC interface
+----
+Start the authentication server:
+``` cd server ```
+``` npm install ```
+``` node server.js ```
+----
+
+Webapplication backend
+----
+Start the GraphQL backend:
+``` cd backend ```
+``` npm install ```
+``` node index.js ```
+----
+
+Angular application
+----
+Start the Angular front end:
+``` cd frontend ```
+``` npm install ```
+``` ng serve ```
+navigate to http://localhost:4200/
+----
