@@ -1,6 +1,7 @@
 == SimWI Application Overview
 
 Desktop application for authentication server
+
 image::ApplicationScreenshot.png[Appllication main window]
 
 == Running the gRPC Authentication service
