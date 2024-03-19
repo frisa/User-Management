@@ -1,7 +1,7 @@
 == SimWI Application Overview
 
 Desktop application for authentication server
-image::
+image::ApplicationScreenshot.png
 
 == Running the gRPC Authentication service
 
